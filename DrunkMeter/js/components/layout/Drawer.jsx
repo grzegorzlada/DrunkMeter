@@ -3,31 +3,31 @@ import {Link} from 'react-router';
 
 export default class Drawer extends React.Component {
     closeDrawer() {
-        document.querySelector('.mdl-layout').MaterialLayout.toggleDrawer();
+        if (document.getElementById('drawer').classList.contains('is-visible')) {
+            document.querySelector('.mdl-layout').MaterialLayout.toggleDrawer();
+        }
     }
 
     render() {
         return (
-            <div className="demo-drawer mdl-layout__drawer mdl-color--blue-grey-900 mdl-color-text--blue-grey-50">
-                <header className="demo-drawer-header">
-                    <span className="mdl-layout-title">Wirtualny alkomat</span>
-                </header>
-                <nav className="demo-navigation mdl-navigation mdl-color--blue-grey-800">
+            <div id="drawer" className="mdl-layout__drawer">
+                <span className="mdl-layout-title">Wirtualny alkomat</span>
+                <nav className="mdl-navigation">
                     <Link to="/" className="mdl-navigation__link" onClick={() => this.closeDrawer()}>
-                        <i className="mdl-color-text--blue-grey-400 material-icons" role="presentation">apps</i>Podsumowanie</Link>
+                        <i className="material-icons" role="presentation">apps</i>Podsumowanie</Link>
                     <Link to="/new-party" className="mdl-navigation__link" onClick={() => this.closeDrawer()}>
-                        <i className="mdl-color-text--blue-grey-400 material-icons" role="presentation">local_bar</i>Nowa impreza</Link>
+                        <i className="material-icons" role="presentation">local_bar</i>Nowa impreza</Link>
                     <Link to="/history" className="mdl-navigation__link" onClick={() => this.closeDrawer()}>
-                        <i className="mdl-color-text--blue-grey-400 material-icons" role="presentation">history</i>Historia</Link>
+                        <i className="material-icons" role="presentation">history</i>Historia</Link>
                     <Link to="/quick-calculation" className="mdl-navigation__link" onClick={() => this.closeDrawer()}>
-                        <i className="mdl-color-text--blue-grey-400 material-icons" role="presentation">flash_on</i>Szybkie liczenie</Link>
+                        <i className="material-icons" role="presentation">flash_on</i>Szybkie liczenie</Link>
                     <Link to="/library" className="mdl-navigation__link" onClick={() => this.closeDrawer()}>
-                        <i className="mdl-color-text--blue-grey-400 material-icons" role="presentation">list</i>Biblioteka alkoholi</Link>
+                        <i className="material-icons" role="presentation">list</i>Biblioteka alkoholi</Link>
                     <Link to="/settings" className="mdl-navigation__link" onClick={() => this.closeDrawer()}>
-                        <i className="mdl-color-text--blue-grey-400 material-icons" role="presentation">settings</i>Ustawienia</Link>
-                    <div className="mdl-layout-spacer" />
+                        <i className="material-icons" role="presentation">settings</i>Ustawienia</Link>
+                    <div className="mdl-layout-spacer"/>
                     <Link to="/help" className="mdl-navigation__link" onClick={() => this.closeDrawer()}>
-                        <i className="mdl-color-text--blue-grey-400 material-icons" role="presentation">help_outline</i>
+                        <i className="material-icons" role="presentation">help_outline</i>
                         <span className="visuallyhidden">Pomoc</span>
                     </Link>
                 </nav>
