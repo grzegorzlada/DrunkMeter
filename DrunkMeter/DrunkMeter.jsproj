@@ -61,7 +61,7 @@
     <Content Include="css\default.css" />
     <Content Include="css\fonts.woff2" />
     <Content Include="css\icon.css" />
-    <Content Include="css\material.indigo-purple.min.css" />
+    <Content Include="css\material.min.css" />
     <Content Include="dist\bundle.js" />
     <Content Include="dist\bundle.js.map" />
     <Content Include="dist\material.min.js" />
