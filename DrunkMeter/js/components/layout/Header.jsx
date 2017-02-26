@@ -1,7 +1,5 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
-import {FABButton, Icon} from 'react-mdl';
-import {Router, Route, Link} from 'react-router';
+import {Link} from 'react-router';
 
 export default class App extends React.Component {
 
@@ -25,9 +23,9 @@ export default class App extends React.Component {
                         <i className="material-icons">more_vert</i>
                     </button>
                     <ul className="mdl-menu mdl-js-menu mdl-js-ripple-effect mdl-menu--bottom-right" htmlFor="hdrbtn">
-                        <li className="mdl-menu__item">About</li>
-                        <li className="mdl-menu__item">Contact</li>
-                        <li className="mdl-menu__item">Legal information</li>
+                        <Link to="/help"><li className="mdl-menu__item">Pomoc</li></Link>
+                        <Link to="/settings"><li className="mdl-menu__item">Ustawienia</li></Link>
+                        <li className="mdl-menu__item">Oceń</li>
                     </ul>
                 </div>
             </header>
