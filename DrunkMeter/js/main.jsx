@@ -2,8 +2,14 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import {Router, Route, hashHistory, IndexRoute} from 'react-router';
 import BasicPage from './components/layout/BasicPage';
-import About from './components/pages/About';
-import Home from './components/pages/Home';
+import Summary from './components/pages/Summary';
+import NewParty from './components/pages/NewParty';
+import History from './components/pages/History';
+import QuickCalculation from './components/pages/QuickCalculation';
+import Library from './components/pages/Library';
+import Settings from './components/pages/Settings';
+import Help from './components/pages/Help';
+
 
 class Main extends React.Component {
     constructor(props) {
@@ -14,9 +20,14 @@ class Main extends React.Component {
         return (
             <Router history={hashHistory}>
                 <Route path="/" component={BasicPage}>
-                    <IndexRoute component={Home} title="Home" />
-                    <Route path="about" component={About} title="About" />
-                    <Route path="*" component={Home} /> }
+                    <IndexRoute component={Summary} title="Podsumowanie" />
+                    <Route path="new-party" component={NewParty} title="Nowa impreza" />
+                    <Route path="history" component={History} title="Historia imprez" />
+                    <Route path="quick-calculation" component={QuickCalculation} title="Szybkie liczenie" />
+                    <Route path="library" component={Library} title="Biblioteka alkoholi" />
+                    <Route path="settings" component={Settings} title="Ustawienia" />
+                    <Route path="help" component={Help} title="Pomoc" />
+                    <Route path="*" component={Summary} /> }
                 </Route>
             </Router>
         );
