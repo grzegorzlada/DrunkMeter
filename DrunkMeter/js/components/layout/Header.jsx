@@ -6,7 +6,7 @@ export default class App extends React.Component {
     render() {
 
         return (
-            <header className="demo-header mdl-layout__header mdl-color--grey-100 mdl-color-text--grey-600">
+            <header className="demo-header mdl-layout__header">
                 <div className="mdl-layout__header-row">
                     <span className="mdl-layout-title">{this.props.title}</span>
                     <div className="mdl-layout-spacer"></div>
