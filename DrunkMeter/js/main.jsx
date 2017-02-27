@@ -9,11 +9,15 @@ import QuickCalculation from './components/pages/QuickCalculation';
 import Library from './components/pages/Library';
 import Settings from './components/pages/Settings';
 import Help from './components/pages/Help';
+import DrunkMeterStore from './DrunkMeterStore';
 
 
 class Main extends React.Component {
     constructor(props) {
         super(props);
+        window.DRUNKMETER = {};
+        window.DRUNKMETER.DrunkMeterStore = new DrunkMeterStore();
+        window.DRUNKMETER.DrunkMeterStore.startAsynchronousStoreInitialization();
     }
 
     render() {
