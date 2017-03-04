@@ -29,6 +29,11 @@ export default class TextField extends React.Component {
         });
     }
 
+    componentWillReceiveProps(nextProps) {
+        console.log('New props coming...');
+        this.setState({value: nextProps.value});
+    }
+
     getClassName() {
         var cssClasses = 'mdl-textfield mdl-js-textfield';
         if (!this.state.isValid) {

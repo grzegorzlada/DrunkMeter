@@ -14,9 +14,20 @@ export default class UserProfile extends React.Component {
         super(props);
         this.state = {
             sex: 'male',
-            height: {value: 180},
-            weight: {value: 90}
+            height: {value: 180, isValid: true},
+            weight: {value: 90, isValid: true},
+            isDataLoaded: false
         };
+    }
+
+    componentWillMount() {
+        DRUNKMETER.DrunkMeterStore.UserProfileStore.getUserProfile(this.userProfileRetrievedFromStore.bind(this));
+    }
+
+    componentWillUpdate(nextProps, nextState) {
+        if (this.isStateValid(nextState)) {
+            this.saveUserProfileInStore(nextState);
+        }
     }
 
     onWeightChange(newWeight) {
@@ -27,8 +38,31 @@ export default class UserProfile extends React.Component {
         this.setState({height: newHeight});
     }
 
-    isStateValid() {
-        return this.state.height.isValid && this.state.weight.isValid;
+    onSexChange(e) {
+        this.setState({sex: e.target.value});
+    }
+
+    isStateValid(state) {
+        return state.height.isValid && state.weight.isValid;
+    }
+
+    saveUserProfileInStore(state) {
+        var profile = {
+            weight: state.weight.value,
+            height: state.height.value,
+            sex: state.sex
+        };
+        DRUNKMETER.DrunkMeterStore.UserProfileStore.saveNewUserProfile(profile);
+    }
+
+    userProfileRetrievedFromStore(userProfile) {
+        console.log('UP retrieved');
+        this.setState({
+            isDataLoaded: true,
+            height: {value: userProfile.height, isValid: true},
+            weight: {value: userProfile.weight, isValid: true},
+            sex: userProfile.sex
+        });
     }
 
     render() {
@@ -40,7 +74,7 @@ export default class UserProfile extends React.Component {
                 <CardTitle>Twój profil</CardTitle>
                 <CardText>
                     <h5 className="no-margin">Płeć</h5>
-                    <RadioGroup name="sex" value={this.state.sex}>
+                    <RadioGroup name="sex" value={this.state.sex} onChange={(e) => this.onSexChange(e)}>
                         <Radio value="female" className="margin-right-50">Kobieta</Radio>
                         <Radio value="male">Mężczyzna</Radio>
                     </RadioGroup>
