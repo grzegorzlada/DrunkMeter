@@ -91,3 +91,9 @@ _:-ms-input-placeholder, :root .demo-graph {
 a {
   text-decoration: none;
 }
+.no-margin {
+  margin: 0;
+}
+.margin-right-50 {
+  margin-right: 50px;
+}
