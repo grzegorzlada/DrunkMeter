@@ -190,6 +190,7 @@
     "prefer-spread": 2
   },
   "globals": {
-    "Windows": true
+    "Windows": true,
+    "DRUNKMETER": true
   }
 }

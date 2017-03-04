@@ -6,13 +6,13 @@ export default class SettingsStore {
     constructor() {
         console.log('Settings store constructed');
         this.settingsList = null;
-        this.repo = new LocalStorageRepo();
-        this.settingsListReceivedHandlers = [];
+        this.repository = new LocalStorageRepo();
+        this.settingsReceivedHandlers = [];
     }
 
     initializeSettingsStore() {
         console.log('Settings store initialization started');
-        var settingsListPromise = this.repo.retrieveData(SETTINGS_LIST_KEY);
+        var settingsListPromise = this.repository.retrieveData(SETTINGS_LIST_KEY);
         settingsListPromise.then(this.settingsListRetrieved.bind(this));
     }
 
@@ -28,18 +28,18 @@ export default class SettingsStore {
     }
 
     notifyAllHandlersAboutReceivedSettings() {
-        var handler = this.settingsListReceivedHandlers.pop();
+        var handler = this.settingsReceivedHandlers.pop();
         while (handler) {
             handler(this.settingsList);
-            handler = this.settingsListReceivedHandlers.pop();
+            handler = this.settingsReceivedHandlers.pop();
         }
     }
 
-    getSettingsList(settingsListReceivedHandler) {
+    getSettingsList(settingsReveivedHandler) {
         if (this.settingsList === null) {
-            this.settingsListReceivedHandlers.push(settingsListReceivedHandler);
+            this.settingsReceivedHandlers.push(settingsReveivedHandler);
         } else {
-            settingsListReceivedHandler(this.settingsList);
+            settingsReveivedHandler(this.settingsList);
         }
     }
 

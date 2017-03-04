@@ -1,12 +1,8 @@
 import React from 'react';
 import {
-    Button,
-    IconButton,
     Card,
     CardTitle,
     CardText,
-    CardActions,
-    CardMenu,
     Switch
 } from 'react-mdl';
 
@@ -21,11 +17,11 @@ export default class ApplicationSettings extends React.Component {
     }
 
     componentWillMount() {
-        DRUNKMETER.DrunkMeterStore.SettingsStore.getSettingsList(this.settingsListReceived.bind(this));
+        DRUNKMETER.DrunkMeterStore.SettingsStore.getSettingsList(this.onSettingsReveived.bind(this));
     }
 
-    settingsListReceived(settingsList) {
-        this.setState(settingsList);
+    onSettingsReveived(settings) {
+        this.setState(settings);
         this.setState({isDataLoaded: true});
     }
 
@@ -57,9 +53,15 @@ export default class ApplicationSettings extends React.Component {
             }}>
                 <CardTitle>Ustawienia aplikacji</CardTitle>
                 <CardText>
-                    <Switch ripple id="switch1" checked={this.state.isSavingLocationEnabled} disabled={!this.state.isDataLoaded} onChange={(e) => this.saveLocationChanged(e)}>Zapisuj lokalizację</Switch>
+                    <Switch ripple id="switch1"
+                        checked={this.state.isSavingLocationEnabled}
+                        disabled={!this.state.isDataLoaded}
+                        onChange={(e) => this.saveLocationChanged(e)}>Zapisuj lokalizację</Switch>
                     <p>{this.getSaveLocationText()}</p>
-                    <Switch ripple id="switch1" checked={this.state.isSavingHistoryEnabled} disabled={!this.state.isDataLoaded} onChange={(e) => this.saveHistoryChanged(e)}>Zapisuj historię</Switch>
+                    <Switch ripple id="switch1"
+                        checked={this.state.isSavingHistoryEnabled}
+                        disabled={!this.state.isDataLoaded}
+                        onChange={(e) => this.saveHistoryChanged(e)}>Zapisuj historię</Switch>
                     <p>{this.getSaveHistoryText()}</p>
                 </CardText>
             </Card>
