@@ -17,7 +17,11 @@ export default class ApplicationSettings extends React.Component {
     }
 
     componentWillMount() {
-        DRUNKMETER.DrunkMeterStore.SettingsStore.getSettingsList(this.onSettingsReveived.bind(this));
+        DRUNKMETER.DrunkMeterStore.SettingsStore.getSettings(this.onSettingsReveived.bind(this));
+    }
+
+    componentWillUpdate(nextProps, nextState) {
+        this.saveCurrentSettingsInStore(nextState);
     }
 
     onSettingsReveived(settings) {
@@ -43,6 +47,14 @@ export default class ApplicationSettings extends React.Component {
 
     saveHistoryChanged(e) {
         this.setState({'isSavingHistoryEnabled': e.target.checked});
+    }
+
+    saveCurrentSettingsInStore(state) {
+        var settings = {
+            isSavingLocationEnabled: state.isSavingLocationEnabled,
+            isSavingHistoryEnabled: state.isSavingHistoryEnabled
+        };
+        DRUNKMETER.DrunkMeterStore.SettingsStore.saveNewSettings(settings);
     }
 
     render() {
