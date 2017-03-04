@@ -2,27 +2,12 @@ import SettingsStore from './stores/SettingsStore';
 
 export default class DrunkMeterStore {
     constructor() {
-        console.log('Store initializing...');
-        this.SettingsList = null;
+        console.log('Stores initializing...');
+        this.SettingsStore = new SettingsStore();
     }
 
     startAsynchronousStoreInitialization() {
-        var settingsStore = new SettingsStore();
-        settingsStore.initializeSettingsList(this.settingsListInitialized.bind(this), this.storeInitializationError.bind(this));
-    }
-
-    settingsListInitialized(settingsList) {
-        this.SettingsList = settingsList;
-    }
-
-    storeInitializationError(error) {
-        console.log('STORE INIT ERROR: ' + error);
-    }
-
-    getSettingsList() {
-        var that = this;
-        return new Promise(function(resolve, reject) {
-            resolve(that.SettingsList);
-        });
+        console.log('All stores async inistialization started');
+        this.SettingsStore.initializeSettingsStore();
     }
 }

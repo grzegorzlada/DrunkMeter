@@ -15,8 +15,18 @@ export default class ApplicationSettings extends React.Component {
         super(props);
         this.state = {
             isSavingLocationEnabled: true,
-            isSavingHistoryEnabled: true
+            isSavingHistoryEnabled: true,
+            isDataLoaded: false
         };
+    }
+
+    componentWillMount() {
+        DRUNKMETER.DrunkMeterStore.SettingsStore.getSettingsList(this.settingsListReceived.bind(this));
+    }
+
+    settingsListReceived(settingsList) {
+        this.setState(settingsList);
+        this.setState({isDataLoaded: true});
     }
 
     getSaveLocationText() {
@@ -47,9 +57,9 @@ export default class ApplicationSettings extends React.Component {
             }}>
                 <CardTitle>Ustawienia aplikacji</CardTitle>
                 <CardText>
-                    <Switch ripple id="switch1" checked={this.state.isSavingLocationEnabled} onChange={(e) => this.saveLocationChanged(e)}>Zapisuj lokalizację</Switch>
+                    <Switch ripple id="switch1" checked={this.state.isSavingLocationEnabled} disabled={!this.state.isDataLoaded} onChange={(e) => this.saveLocationChanged(e)}>Zapisuj lokalizację</Switch>
                     <p>{this.getSaveLocationText()}</p>
-                    <Switch ripple id="switch1" checked={this.state.isSavingHistoryEnabled} onChange={(e) => this.saveHistoryChanged(e)}>Zapisuj historię</Switch>
+                    <Switch ripple id="switch1" checked={this.state.isSavingHistoryEnabled} disabled={!this.state.isDataLoaded} onChange={(e) => this.saveHistoryChanged(e)}>Zapisuj historię</Switch>
                     <p>{this.getSaveHistoryText()}</p>
                 </CardText>
             </Card>
