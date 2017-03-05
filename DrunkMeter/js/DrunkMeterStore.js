@@ -10,7 +10,7 @@ export default class DrunkMeterStore {
 
     startAsynchronousStoreInitialization() {
         console.log('All stores async inistialization started');
-        this.SettingsStore.initializeSettingsStore();
-        this.UserProfileStore.initializeUserProfileStore();
+        this.SettingsStore.initializeStore();
+        this.UserProfileStore.initializeStore();
     }
 }
