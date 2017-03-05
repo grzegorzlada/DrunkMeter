@@ -1,5 +1,5 @@
 import React from 'react';
-import {uniqueId} from 'lodash';
+import { uniqueId } from 'lodash';
 
 const propTypes = {
     label: React.PropTypes.string.isRequired,
@@ -31,7 +31,7 @@ export default class TextField extends React.Component {
 
     componentWillReceiveProps(nextProps) {
         console.log('New props coming...');
-        this.setState({value: nextProps.value});
+        this.setState({ value: nextProps.value });
     }
 
     getClassName() {
@@ -57,7 +57,12 @@ export default class TextField extends React.Component {
                 isValid: isValid
             });
         }
+    }
 
+    getLabel() {
+        return this.state.value.length > 0
+            ? ''
+            : this.props.label;
     }
 
     render() {
@@ -65,7 +70,7 @@ export default class TextField extends React.Component {
             <div className={this.getClassName()}>
                 <input className="mdl-textfield__input" type="text" id={this.Id} pattern={this.props.pattern}
                     onChange={(e) => { this.textfieldChanhge(e); }} value={this.state.value} />
-                <label className="mdl-textfield__label" htmlFor={this.Id}>{this.props.label}</label>
+                <label className="mdl-textfield__label" htmlFor={this.Id}>{this.getLabel()}</label>
                 <span className="mdl-textfield__error">{this.props.validationMessage}</span>
             </div>
         );
