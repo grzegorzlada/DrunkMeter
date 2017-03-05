@@ -9,6 +9,7 @@ const propTypes = {
         React.PropTypes.string,
         React.PropTypes.number
     ]),
+    containerStyle: React.PropTypes.object,
     pattern: React.PropTypes.string,
     onChange: React.PropTypes.func
 };
@@ -65,9 +66,15 @@ export default class TextField extends React.Component {
             : this.props.label;
     }
 
+    getContainerStyle() {
+        return typeof this.props.containerStyle !== 'undefined' && this.props.containerStyle !== null
+            ? this.props.containerStyle
+            : {};
+    }
+
     render() {
         return (
-            <div className={this.getClassName()}>
+            <div className={this.getClassName()} style={this.getContainerStyle()}>
                 <input className="mdl-textfield__input" type="text" id={this.Id} pattern={this.props.pattern}
                     onChange={(e) => { this.textfieldChanhge(e); }} value={this.state.value} />
                 <label className="mdl-textfield__label" htmlFor={this.Id}>{this.getLabel()}</label>

@@ -8,6 +8,12 @@ import {
 } from 'react-mdl';
 import TextField from '../inputs/TextField';
 
+const styles = {
+    containerStyle: {
+        paddingTop: 10
+    }
+};
+
 export default class UserProfile extends React.Component {
 
     constructor(props) {
@@ -73,25 +79,27 @@ export default class UserProfile extends React.Component {
             }}>
                 <CardTitle>Twój profil</CardTitle>
                 <CardText>
-                    <h5 className="no-margin">Płeć</h5>
-                    <RadioGroup name="sex" value={this.state.sex} onChange={(e) => this.onSexChange(e)}>
+                    <h5 className="no-margin-bottom">Płeć</h5>
+                    <RadioGroup name="sex" value={this.state.sex} onChange={(e) => this.onSexChange(e)} style={styles.containerStyle}>
                         <Radio value="female" className="margin-right-50">Kobieta</Radio>
                         <Radio value="male">Mężczyzna</Radio>
                     </RadioGroup>
-                    <h5 className="no-margin">Waga</h5>
+                    <h5 className="no-margin-bottom">Waga</h5>
                     <TextField
                         pattern="^[0-9]+$"
                         validationMessage="Waga musi być liczbą całkowitą"
                         label="Podaj swoją wagę w kilogramach"
                         value={this.state.weight.value}
+                        containerStyle={styles.containerStyle}
                         onChange={(value) => this.onWeightChange(value)}
                     />
-                    <h5 className="no-margin">Wzrost</h5>
+                    <h5 className="no-margin-bottom">Wzrost</h5>
                     <TextField
                         pattern="^[0-9]+$"
                         validationMessage="Wzrost musi być liczbą całkowitą"
                         label="Podaj swój wzrost w centymetrach"
                         value={this.state.height.value}
+                        containerStyle={styles.containerStyle}
                         onChange={(value) => this.onHeightChange(value)}
                     />
                 </CardText>
