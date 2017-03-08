@@ -33,4 +33,8 @@ export default class PersonData {
     getStomachLevel() {
         return this.stomachLevel;
     }
+
+    getWeight() {
+        return this.weight;
+    }
 }
