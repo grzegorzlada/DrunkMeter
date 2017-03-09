@@ -9,7 +9,7 @@ export default class Test {
             new Alcohol(700, 12)
         ];
 
-        var calculator = new Calculator(personData, drunkAlcohol, null, null);
+        var calculator = new Calculator(personData, drunkAlcohol, 4);
         var premiles = calculator.getAlcoholPremiles();
     }
 }

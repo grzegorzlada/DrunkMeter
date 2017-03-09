@@ -4,9 +4,10 @@ import { ceil } from 'lodash';
 const ELIMINATION_SPEED = 0.12;
 
 export default class Calculator {
-    constructor(personData, drunkAlcohol) {
+    constructor(personData, drunkAlcohol, drinkingTime) {
         this.personData = personData;
         this.drunkAlcohol = drunkAlcohol;
+        this.drinkingTime = drinkingTime;
     }
 
     getAlcoholPremiles() {
