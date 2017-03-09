@@ -29,6 +29,7 @@ export default class Calculator {
             premileEntries.push(new PremlieEntry(hoursSinceDrinkingCommenced, alcoholLevelInBlood));
         }
 
+        this.shapeAlcoholLevelCurve(premileEntries);
         return premileEntries;
     }
 
@@ -56,6 +57,12 @@ export default class Calculator {
 
     calculateHoursRequiredToGetSober(alcoholLevelInBlood) {
         return ceil(alcoholLevelInBlood / ELIMINATION_SPEED);
+    }
+
+    shapeAlcoholLevelCurve(premileEntries) {
+        premileEntries.forEach(function(entry) {
+            
+        }, this);
     }
 
 
