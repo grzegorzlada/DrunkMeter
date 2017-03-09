@@ -10,7 +10,6 @@ export default class Test {
         ];
 
         var calculator = new Calculator(personData, drunkAlcohol, null, null);
-        var alcoholInGrams = calculator.getTotalAlcoholVolume();
         var premiles = calculator.getAlcoholPremiles();
     }
 }
