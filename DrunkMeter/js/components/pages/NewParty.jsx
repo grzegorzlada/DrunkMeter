@@ -5,6 +5,7 @@ import {
     CardText,
 } from 'react-mdl';
 import Introduction from '../newparty/Introduction';
+import Calculation from '../newparty/Calculation';
 
 export default class NewParty extends React.Component {
 
@@ -12,7 +13,8 @@ export default class NewParty extends React.Component {
         super(props);
         this.state = {
             isProfileLoaded: false,
-            userProfile: null
+            userProfile: null,
+            isNewAlcoholMode: false
         };
     }
 
@@ -24,11 +26,22 @@ export default class NewParty extends React.Component {
         this.setState({
             isProfileLoaded: true,
             userProfile: {
-                weight: profile.weight,
-                height: profile.height,
+                weight: +profile.weight,
+                height: +profile.height,
                 sex: profile.sex
             }
         });
+    }
+
+    enterAddNewAlcoholMode() {
+        console.log('Entering new alcohol mode...');
+        this.setState({
+            isNewAlcoholMode: true
+        });
+    }
+
+    leaveAddNewAlcoholMode() {
+        console.log('Leaving new alcohol mode...');
     }
 
     render() {
@@ -36,9 +49,18 @@ export default class NewParty extends React.Component {
             return <div>Ładowanie danych...</div>;
         }
 
+        if (this.state.isNewAlcoholMode) {
+            return (
+                <div>
+                    New Alcohol Mode
+                </div>
+            );
+        }
+
         return (
             <div>
                 <Introduction weight={this.state.userProfile.weight} height={this.state.userProfile.height} sex={this.state.userProfile.sex} />
+                <Calculation title="Obliczanie promili" onEnterNewAlcoholModeClick={() => this.enterAddNewAlcoholMode()} />
             </div>
         );
     }
