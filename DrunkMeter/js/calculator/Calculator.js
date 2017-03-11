@@ -1,5 +1,7 @@
 import PremlieEntry from './PremileEntry';
-import { ceil } from 'lodash';
+import {
+    ceil
+} from 'lodash';
 
 const ELIMINATION_SPEED = 0.12;
 
@@ -35,7 +37,7 @@ export default class Calculator {
 
     getTotalPureAlcoholVolume() {
         var totalVolume = 0;
-        this.drunkAlcohol.forEach(function(alcohol) {
+        this.drunkAlcohol.forEach(function (alcohol) {
             totalVolume += alcohol.getPureAlcoholVolumeInGrams();
         }, this);
 
@@ -60,10 +62,14 @@ export default class Calculator {
     }
 
     shapeAlcoholLevelCurve(premileEntries) {
-        premileEntries.forEach(function(entry) {
-            
-        }, this);
+        var peakIndex = this.drinkingTime;
+        var peakValue = premileEntries[peakIndex].getCurrentPremile();
+        var delta = peakValue / this.drinkingTime;
+
+        for (var i = 0; i < peakIndex; i++) {
+            var entry = premileEntries[i];
+            var currentPremile = i * delta;
+            entry.setCurrentPremile(currentPremile);
+        }
     }
-
-
 }

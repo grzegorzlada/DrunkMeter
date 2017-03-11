@@ -11,4 +11,8 @@ export default class PremileEntry {
     getCurrentPremile() {
         return this.currentPremile;
     }
+
+    setCurrentPremile(premile) {
+        this.currentPremile = premile;
+    }
 }
