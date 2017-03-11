@@ -32,14 +32,14 @@ export default class NewParty extends React.Component {
     }
 
     render() {
-        if (this.state.isProfileLoaded) {
-            return (
-                <Introduction weight={this.state.userProfile.weight} height={this.state.userProfile.height} sex={this.state.userProfile.sex} />
-            );
-        } else {
-            return (
-                <div>Ładowanie profilu...</div>
-            );
+        if (!this.state.isProfileLoaded) {
+            return <div>Ładowanie danych...</div>;
         }
+
+        return (
+            <div>
+                <Introduction weight={this.state.userProfile.weight} height={this.state.userProfile.height} sex={this.state.userProfile.sex} />
+            </div>
+        );
     }
 }
