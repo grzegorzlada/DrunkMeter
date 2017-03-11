@@ -6,6 +6,7 @@ import {
 } from 'react-mdl';
 import Introduction from '../newparty/Introduction';
 import Calculation from '../newparty/Calculation';
+import AddAlcohol from '../newparty/AddAlcohol';
 
 export default class NewParty extends React.Component {
 
@@ -42,6 +43,9 @@ export default class NewParty extends React.Component {
 
     leaveAddNewAlcoholMode() {
         console.log('Leaving new alcohol mode...');
+        this.setState({
+            isNewAlcoholMode: false
+        });
     }
 
     render() {
@@ -52,7 +56,7 @@ export default class NewParty extends React.Component {
         if (this.state.isNewAlcoholMode) {
             return (
                 <div>
-                    New Alcohol Mode
+                    <AddAlcohol onGoBackClick={() => {this.leaveAddNewAlcoholMode();}} />
                 </div>
             );
         }
