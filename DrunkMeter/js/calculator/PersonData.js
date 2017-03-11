@@ -4,7 +4,7 @@ export default class PersonData {
      * Creates an instance of PersonData.
      * @param {number} weight weight in kilograms
      * @param {number} height height in centimeters
-     * @param {string} sex Sex. male | female)
+     * @param {string} sex Sex. male | female
      * @param {number} stomachLevel Food level in stomach. 0 - empty | 0.5 - half-full | 1 - full
      *
      * @memberOf PersonData

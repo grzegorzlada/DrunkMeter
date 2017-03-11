@@ -15,15 +15,15 @@ export default class Calculator {
     getAlcoholPremiles() {
         var premileEntries = [];
         var hoursSinceDrinkingCommenced = 0;
-        var totalPureAlcoholVolumeInGrams = this.getTotalPureAlcoholVolume();
-        var initialAlcoholLevelInBlood = this.calculateBaseAlcoholLevel(totalPureAlcoholVolumeInGrams);
+        var totalPureAlcoholVolumeInGrams = this._getTotalPureAlcoholVolume();
+        var initialAlcoholLevelInBlood = this._calculateBaseAlcoholLevel(totalPureAlcoholVolumeInGrams);
         var alcoholLevelInBlood = initialAlcoholLevelInBlood;
 
         premileEntries.push(new PremlieEntry(hoursSinceDrinkingCommenced, initialAlcoholLevelInBlood));
 
         while (alcoholLevelInBlood > 0) {
             hoursSinceDrinkingCommenced += 1;
-            alcoholLevelInBlood = this.calculateAlcoholLevel(initialAlcoholLevelInBlood, hoursSinceDrinkingCommenced);
+            alcoholLevelInBlood = this._calculateAlcoholLevel(initialAlcoholLevelInBlood, hoursSinceDrinkingCommenced);
             if (alcoholLevelInBlood < 0) {
                 alcoholLevelInBlood = 0;
             }
@@ -31,37 +31,37 @@ export default class Calculator {
             premileEntries.push(new PremlieEntry(hoursSinceDrinkingCommenced, alcoholLevelInBlood));
         }
 
-        this.shapeAlcoholLevelCurve(premileEntries);
+        this._shapeAlcoholLevelCurve(premileEntries);
         return premileEntries;
     }
 
-    getTotalPureAlcoholVolume() {
+    _getTotalPureAlcoholVolume() {
         var totalVolume = 0;
-        this.drunkAlcohol.forEach(function (alcohol) {
+        this.drunkAlcohol.forEach(function sumAlcoholLevel(alcohol) {
             totalVolume += alcohol.getPureAlcoholVolumeInGrams();
         }, this);
 
         return totalVolume;
     }
 
-    calculateBaseAlcoholLevel(totalPureAlcoholVolumeInGrams) {
+    _calculateBaseAlcoholLevel(totalPureAlcoholVolumeInGrams) {
         var alcoholLevelInBlood = totalPureAlcoholVolumeInGrams / (this.personData.getWeight() * this.personData.getRfactor());
-        var hoursRequiredToGetSober = this.calculateHoursRequiredToGetSober(alcoholLevelInBlood);
+        var hoursRequiredToGetSober = this._calculateHoursRequiredToGetSober(alcoholLevelInBlood);
         var additionalTimeRequiredToGetSober = this.personData.getAdditionalTimeRequiredToGetSober();
         var increasedInitialAlcoholLevelInBlood = (hoursRequiredToGetSober + additionalTimeRequiredToGetSober) * ELIMINATION_SPEED;
 
         return increasedInitialAlcoholLevelInBlood;
     }
 
-    calculateAlcoholLevel(initialAlcoholLevel, hoursSinceDrinkingCommenced) {
+    _calculateAlcoholLevel(initialAlcoholLevel, hoursSinceDrinkingCommenced) {
         return initialAlcoholLevel - hoursSinceDrinkingCommenced * ELIMINATION_SPEED;
     }
 
-    calculateHoursRequiredToGetSober(alcoholLevelInBlood) {
+    _calculateHoursRequiredToGetSober(alcoholLevelInBlood) {
         return ceil(alcoholLevelInBlood / ELIMINATION_SPEED);
     }
 
-    shapeAlcoholLevelCurve(premileEntries) {
+    _shapeAlcoholLevelCurve(premileEntries) {
         var peakIndex = this.drinkingTime;
         var peakValue = premileEntries[peakIndex].getCurrentPremile();
         var delta = peakValue / this.drinkingTime;
