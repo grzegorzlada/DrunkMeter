@@ -61,7 +61,8 @@ export default class ApplicationSettings extends React.Component {
         return (
             <Card shadow={0} style={{
                 width: '100%',
-                margin: 'auto'
+                margin: 'auto',
+                marginBottom: 10
             }}>
                 <CardTitle>Ustawienia aplikacji</CardTitle>
                 <CardText>

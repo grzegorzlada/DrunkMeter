@@ -75,7 +75,8 @@ export default class UserProfile extends React.Component {
         return (
             <Card shadow={0} style={{
                 width: '100%',
-                margin: 'auto'
+                margin: 'auto',
+                marginBottom: 10
             }}>
                 <CardTitle>Twój profil</CardTitle>
                 <CardText>
