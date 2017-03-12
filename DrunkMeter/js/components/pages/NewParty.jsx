@@ -1,5 +1,5 @@
 import React from 'react';
-import {Card, CardTitle, CardText} from 'react-mdl';
+import { Card, CardTitle, CardText } from 'react-mdl';
 import Introduction from '../newparty/Introduction';
 import Calculation from '../newparty/Calculation';
 import AlcoholList from '../newparty/AlcoholList';
@@ -51,12 +51,23 @@ export default class NewParty extends React.Component {
         });
     }
 
-    alcoholAddedToTheList(alcohol) {
+    addAlcoholToDrunkList(alcohol) {
         console.log('Alcohol added to the list');
         this.setState((prevState) => ({
             drunkAlcohol: prevState.drunkAlcohol.concat([alcohol])
         }));
         this.goToMode(MODES.normal);
+    }
+
+    removeAlcoholFromDrunkList(alcohol) {
+        var index = this.state.drunkAlcohol.lastIndexOf(alcohol);
+        var drunkAlcohol = this.state.drunkAlcohol;
+        if (index >= 0) {
+            drunkAlcohol.splice(index, 1);
+            this.setState({
+                drunkAlcohol: drunkAlcohol
+            });
+        }
     }
 
     renderAddNewAlcoholMode() {
@@ -72,18 +83,24 @@ export default class NewParty extends React.Component {
                         <AlcoholList alcohols={this.state.alcohols}
                             actionIcon="add_circle"
                             onGoBackClick={() => { this.goToMode(MODES.normal); }}
-                            onAlcoholRowClick={(alcohol) => this.alcoholAddedToTheList(alcohol)} />
+                            onAlcoholRowClick={(alcohol) => this.addAlcoholToDrunkList(alcohol)} />
                     </CardText>
                 </Card>
             </div>
         );
     }
 
+
+
     renderNormalMode() {
         return (
             <div>
                 <Introduction weight={this.state.userProfile.weight} height={this.state.userProfile.height} sex={this.state.userProfile.sex} />
-                <Calculation title="Obliczanie promili" drunkAlcohol={this.state.drunkAlcohol} onEnterNewAlcoholModeClick={() => this.goToMode(MODES.addNewAlcohol)} />
+                <Calculation
+                    title="Obliczanie promili"
+                    drunkAlcohol={this.state.drunkAlcohol}
+                    onEnterNewAlcoholModeClick={() => this.goToMode(MODES.addNewAlcohol)}
+                    removeAlcoholFromListHandler={(alcohol) => this.removeAlcoholFromDrunkList(alcohol)} />
             </div>
         );
     }

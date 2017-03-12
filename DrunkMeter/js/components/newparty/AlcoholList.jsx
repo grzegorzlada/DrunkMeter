@@ -4,6 +4,7 @@ const propTypes = {
     onGoBackClick: React.PropTypes.func,
     addNewItemHandler: React.PropTypes.func,
     actionIcon: React.PropTypes.string,
+    actionHandler: React.PropTypes.func,
     onAlcoholRowClick: React.PropTypes.func,
     alcohols: React.PropTypes.array
 };
@@ -19,9 +20,15 @@ export default class AlcoholList extends Component {
         }
     }
 
-    getActionIcon() {
+    actionClicked(alcohol) {
+        if (typeof this.props.actionHandler === 'function') {
+            this.props.actionHandler(alcohol);
+        }
+    }
+
+    getActionIcon(alcohol) {
         return typeof this.props.actionIcon !== 'undefined'
-            ? (<a className="mdl-list__item-secondary-action" href="#"><i className="material-icons">{this.props.actionIcon}</i></a>)
+            ? (<a className="mdl-list__item-secondary-action" onClick={() => this.actionClicked(alcohol)}><i className="material-icons">{this.props.actionIcon}</i></a>)
             : '';
     }
 
@@ -43,7 +50,7 @@ export default class AlcoholList extends Component {
                         </span>
                     </span>
                     <span className="mdl-list__item-secondary-content">
-                        {this.getActionIcon()}
+                        {this.getActionIcon(alcohol)}
                     </span>
                 </li>
             );
