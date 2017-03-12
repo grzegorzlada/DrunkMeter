@@ -68,8 +68,10 @@ export default class NewParty extends React.Component {
 
         var drunkAlcohol = this.state.drunkAlcohol;
         drunkAlcohol.splice(index, 1);
-        this.setState({ drunkAlcohol: drunkAlcohol });
-        this.setState({ lastRemovedAlcohol: alcohol });
+        this.setState({
+            drunkAlcohol: drunkAlcohol,
+            lastRemovedAlcohol: alcohol
+        });
         this.displayToastToUndoRemove();
     }
 
