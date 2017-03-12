@@ -6,6 +6,7 @@ import {
     CardText
 } from 'react-mdl';
 import PlusButton from '../inputs/PlusButton';
+import AlcoholList from './AlcoholList';
 
 const propTypes = {
     title: React.PropTypes.string.isRequired,
@@ -38,6 +39,8 @@ export default class componentName extends Component {
             }}>
                 <CardTitle>{this.props.title}</CardTitle>
                 <CardText>
+                    <AlcoholList title="Wypite alkohole"
+                        alcohols={this.props.drunkAlcohol} />
                     <PlusButton onClick={() => this.addNewItemClick()} />
                 </CardText>
             </Card>

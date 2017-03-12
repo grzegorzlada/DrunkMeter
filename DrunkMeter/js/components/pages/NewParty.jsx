@@ -1,12 +1,14 @@
 import React from 'react';
-import {
-    Card,
-    CardTitle,
-    CardText,
-} from 'react-mdl';
+import {Card, CardTitle, CardText} from 'react-mdl';
 import Introduction from '../newparty/Introduction';
 import Calculation from '../newparty/Calculation';
 import AlcoholList from '../newparty/AlcoholList';
+
+const MODES = {
+    normal: 'normal',
+    addNewAlcohol: 'addNewAlcohol',
+    provideQuantity: 'provideQuantity'
+};
 
 export default class NewParty extends React.Component {
 
@@ -15,9 +17,9 @@ export default class NewParty extends React.Component {
         this.state = {
             isProfileLoaded: false,
             userProfile: null,
-            isNewAlcoholMode: false,
             drunkAlcohol: [],
-            alcohols: []
+            alcohols: [],
+            mode: MODES.normal
         };
     }
 
@@ -43,17 +45,9 @@ export default class NewParty extends React.Component {
         });
     }
 
-    enterAddNewAlcoholMode() {
-        console.log('Entering new alcohol mode...');
+    goToMode(mode) {
         this.setState({
-            isNewAlcoholMode: true
-        });
-    }
-
-    leaveAddNewAlcoholMode() {
-        console.log('Leaving new alcohol mode...');
-        this.setState({
-            isNewAlcoholMode: false
+            mode: mode
         });
     }
 
@@ -62,30 +56,47 @@ export default class NewParty extends React.Component {
         this.setState((prevState) => ({
             drunkAlcohol: prevState.drunkAlcohol.concat([alcohol])
         }));
+        this.goToMode(MODES.normal);
+    }
+
+    renderAddNewAlcoholMode() {
+        return (
+            <div>
+                <Card shadow={0} style={{
+                    width: '100%',
+                    margin: 'auto',
+                    marginBottom: 10
+                }}>
+                    <CardTitle>Dodaj wypity alkohol</CardTitle>
+                    <CardText>
+                        <AlcoholList alcohols={this.state.alcohols}
+                            actionIcon="add_circle"
+                            onGoBackClick={() => { this.goToMode(MODES.normal); }}
+                            onAlcoholRowClick={(alcohol) => this.alcoholAddedToTheList(alcohol)} />
+                    </CardText>
+                </Card>
+            </div>
+        );
+    }
+
+    renderNormalMode() {
+        return (
+            <div>
+                <Introduction weight={this.state.userProfile.weight} height={this.state.userProfile.height} sex={this.state.userProfile.sex} />
+                <Calculation title="Obliczanie promili" drunkAlcohol={this.state.drunkAlcohol} onEnterNewAlcoholModeClick={() => this.goToMode(MODES.addNewAlcohol)} />
+            </div>
+        );
     }
 
     render() {
         if (!this.state.isProfileLoaded) {
-            return <div>Ładowanie danych...</div>;
+            return (<div>Ładowanie danych...</div>);
         }
 
-        if (this.state.isNewAlcoholMode) {
-            return (
-                <div>
-                    <AlcoholList alcohols={this.state.alcohols}
-                        title="Wybierz wypity alkohol"
-                        actionIcon="add_circle"
-                        onGoBackClick={() => { this.leaveAddNewAlcoholMode();}}
-                        onAlcoholRowClick={(alcohol) => this.alcoholAddedToTheList(alcohol)} />
-                </div>
-            );
+        if (this.state.mode === MODES.addNewAlcohol) {
+            return this.renderAddNewAlcoholMode();
         }
 
-        return (
-            <div>
-                <Introduction weight={this.state.userProfile.weight} height={this.state.userProfile.height} sex={this.state.userProfile.sex} />
-                <Calculation title="Obliczanie promili" drunkAlcohol={this.state.drunkAlcohol} onEnterNewAlcoholModeClick={() => this.enterAddNewAlcoholMode()} />
-            </div>
-        );
+        return this.renderNormalMode();
     }
 }

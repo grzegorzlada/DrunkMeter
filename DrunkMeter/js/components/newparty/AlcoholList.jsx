@@ -1,11 +1,8 @@
 import React, { Component } from 'react';
-import { Button, List, ListItem, ListItemContent, ListItemAction, Card, CardTitle, CardText } from 'react-mdl';
-import TextField from '../inputs/TextField';
 
 const propTypes = {
     onGoBackClick: React.PropTypes.func,
     addNewItemHandler: React.PropTypes.func,
-    title: React.PropTypes.string.isRequired,
     actionIcon: React.PropTypes.string,
     onAlcoholRowClick: React.PropTypes.func,
     alcohols: React.PropTypes.array
@@ -55,19 +52,9 @@ export default class AlcoholList extends Component {
 
     render() {
         return (
-            <Card shadow={0} style={{
-                width: '100%',
-                margin: 'auto',
-                marginBottom: 10
-            }}>
-                <CardTitle>{this.props.title}</CardTitle>
-                <CardText>
-                    <ul className="demo-list-three mdl-list">
-                        {this.renderAlcoholRows()}
-                    </ul>
-                </CardText>
-            </Card>
-
+            <ul className="demo-list-three mdl-list">
+                {this.renderAlcoholRows()}
+            </ul>
         );
     }
 }
