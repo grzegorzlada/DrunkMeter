@@ -9,13 +9,13 @@ import PlusButton from '../inputs/PlusButton';
 
 const propTypes = {
     title: React.PropTypes.string.isRequired,
-    onEnterNewAlcoholModeClick: React.PropTypes.func
+    onEnterNewAlcoholModeClick: React.PropTypes.func,
+    drunkAlcohol: React.PropTypes.array
 };
 
 export default class componentName extends Component {
     constructor(props) {
         super(props);
-
     }
 
     componentWillMount() {

@@ -6,7 +6,7 @@ import {
 } from 'react-mdl';
 import Introduction from '../newparty/Introduction';
 import Calculation from '../newparty/Calculation';
-import AddAlcohol from '../newparty/AddAlcohol';
+import AlcoholList from '../newparty/AlcoholList';
 
 export default class NewParty extends React.Component {
 
@@ -15,7 +15,8 @@ export default class NewParty extends React.Component {
         this.state = {
             isProfileLoaded: false,
             userProfile: null,
-            isNewAlcoholMode: false
+            isNewAlcoholMode: false,
+            drunkAlcohol: []
         };
     }
 
@@ -56,7 +57,7 @@ export default class NewParty extends React.Component {
         if (this.state.isNewAlcoholMode) {
             return (
                 <div>
-                    <AddAlcohol title="Wybierz wypity alkohol" onGoBackClick={() => {this.leaveAddNewAlcoholMode();}} />
+                    <AlcoholList title="Wybierz wypity alkohol" actionIcon="add_circle" onGoBackClick={() => {this.leaveAddNewAlcoholMode();}} />
                 </div>
             );
         }
@@ -64,7 +65,7 @@ export default class NewParty extends React.Component {
         return (
             <div>
                 <Introduction weight={this.state.userProfile.weight} height={this.state.userProfile.height} sex={this.state.userProfile.sex} />
-                <Calculation title="Obliczanie promili" onEnterNewAlcoholModeClick={() => this.enterAddNewAlcoholMode()} />
+                <Calculation title="Obliczanie promili" drunkAlcohol={this.state.drunkAlcohol} onEnterNewAlcoholModeClick={() => this.enterAddNewAlcoholMode()} />
             </div>
         );
     }

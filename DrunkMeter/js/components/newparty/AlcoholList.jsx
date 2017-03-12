@@ -4,10 +4,11 @@ import { Button, List, ListItem, ListItemContent, ListItemAction, Card, CardTitl
 const propTypes = {
     onGoBackClick: React.PropTypes.func,
     addNewItemHandler: React.PropTypes.func,
-    title: React.PropTypes.string.isRequired
+    title: React.PropTypes.string.isRequired,
+    actionIcon: React.PropTypes.string
 };
 
-export default class AddAlcohol extends Component {
+export default class AlcoholList extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -61,6 +62,12 @@ export default class AddAlcohol extends Component {
         return `Objętość: ${alcohol.volume}, Moc: ${alcohol.alcohol}%`;
     }
 
+    getActionIcon() {
+        return typeof this.props.actionIcon !== 'undefined'
+            ? `<a href="#"><i className="material-icons">${this.props.actionIcon}</i></a>`
+            : '';
+    }
+
     renderAlcoholRows() {
         return this.state.alcohols.map((value, index) => {
             return (
@@ -69,7 +76,7 @@ export default class AddAlcohol extends Component {
                         {value.name}
                     </ListItemContent>
                     <ListItemAction>
-                        <a href="#"><i className="material-icons">add_circle</i></a>
+                        {this.getActionIcon()}
                     </ListItemAction>
                 </ListItem>
             );
@@ -95,4 +102,4 @@ export default class AddAlcohol extends Component {
     }
 }
 
-AddAlcohol.propTypes = propTypes;
+AlcoholList.propTypes = propTypes;
