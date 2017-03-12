@@ -61,7 +61,7 @@ export default class TextField extends React.Component {
     }
 
     getLabel() {
-        return this.state.value.length > 0
+        return this.state.value.toString().length > 0
             ? ''
             : this.props.label;
     }
