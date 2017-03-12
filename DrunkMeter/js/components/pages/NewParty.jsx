@@ -19,7 +19,8 @@ export default class NewParty extends React.Component {
             userProfile: null,
             drunkAlcohol: [],
             alcohols: [],
-            mode: MODES.normal
+            mode: MODES.normal,
+            lastRemovedAlcohol: null
         };
     }
 
@@ -61,13 +62,34 @@ export default class NewParty extends React.Component {
 
     removeAlcoholFromDrunkList(alcohol) {
         var index = this.state.drunkAlcohol.lastIndexOf(alcohol);
-        var drunkAlcohol = this.state.drunkAlcohol;
-        if (index >= 0) {
-            drunkAlcohol.splice(index, 1);
-            this.setState({
-                drunkAlcohol: drunkAlcohol
-            });
+        if (index < 0) {
+            return;
         }
+
+        var drunkAlcohol = this.state.drunkAlcohol;
+        drunkAlcohol.splice(index, 1);
+        this.setState({ drunkAlcohol: drunkAlcohol });
+        this.setState({ lastRemovedAlcohol: alcohol });
+        this.displayToastToUndoRemove();
+    }
+
+    displayToastToUndoRemove() {
+        var snackbarContainer = document.querySelector('#toast-area');
+        var data = {
+            message: 'Alkohol usunięty',
+            actionText: 'Cofnij',
+            actionHandler: this.undoRemovingLastAlcohol.bind(this),
+            timeout: 5000
+        };
+        snackbarContainer.MaterialSnackbar.showSnackbar(data);
+    }
+
+    undoRemovingLastAlcohol() {
+        if (this.state.lastRemovedAlcohol === null) {
+            return;
+        }
+        this.addAlcoholToDrunkList(this.state.lastRemovedAlcohol);
+        this.setState({ lastRemovedAlcohol: null });
     }
 
     renderAddNewAlcoholMode() {
@@ -89,8 +111,6 @@ export default class NewParty extends React.Component {
             </div>
         );
     }
-
-
 
     renderNormalMode() {
         return (
