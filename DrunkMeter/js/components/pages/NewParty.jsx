@@ -56,7 +56,7 @@ export default class NewParty extends React.Component {
         if (this.state.isNewAlcoholMode) {
             return (
                 <div>
-                    <AddAlcohol onGoBackClick={() => {this.leaveAddNewAlcoholMode();}} />
+                    <AddAlcohol title="Wybierz wypity alkohol" onGoBackClick={() => {this.leaveAddNewAlcoholMode();}} />
                 </div>
             );
         }
