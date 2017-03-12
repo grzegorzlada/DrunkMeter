@@ -1,55 +1,19 @@
 import React, { Component } from 'react';
 import { Button, List, ListItem, ListItemContent, ListItemAction, Card, CardTitle, CardText } from 'react-mdl';
+import TextField from '../inputs/TextField';
 
 const propTypes = {
     onGoBackClick: React.PropTypes.func,
     addNewItemHandler: React.PropTypes.func,
     title: React.PropTypes.string.isRequired,
-    actionIcon: React.PropTypes.string
+    actionIcon: React.PropTypes.string,
+    onAlcoholRowClick: React.PropTypes.func,
+    alcohols: React.PropTypes.array
 };
 
 export default class AlcoholList extends Component {
     constructor(props) {
         super(props);
-        this.state = {
-            isDataLoaded: false,
-            alcohols: []
-        };
-    }
-
-    componentWillMount() {
-        DRUNKMETER.DrunkMeterStore.AlcoholLibraryStore.getAllAlcohols(this.alcoholsRetrievedFromStore.bind(this));
-    }
-
-    componentDidMount() {
-
-    }
-
-    componentWillReceiveProps(nextProps) {
-
-    }
-
-    shouldComponentUpdate(nextProps, nextState) {
-
-    }
-
-    componentWillUpdate(nextProps, nextState) {
-
-    }
-
-    componentDidUpdate(prevProps, prevState) {
-
-    }
-
-    componentWillUnmount() {
-
-    }
-
-    alcoholsRetrievedFromStore(alcohols) {
-        this.setState({
-            isDataLoaded: true,
-            alcohols: alcohols
-        });
     }
 
     goBack() {
@@ -58,25 +22,27 @@ export default class AlcoholList extends Component {
         }
     }
 
-    getSubtitleRowForAlcohol(alcohol) {
-        return `Objętość: ${alcohol.volume}, Moc: ${alcohol.alcohol}%`;
-    }
-
     getActionIcon() {
         return typeof this.props.actionIcon !== 'undefined'
             ? (<a className="mdl-list__item-secondary-action" href="#"><i className="material-icons">{this.props.actionIcon}</i></a>)
             : '';
     }
 
+    onAlcoholRowClick(alcohol) {
+        if (typeof this.props.onAlcoholRowClick === 'function') {
+            this.props.onAlcoholRowClick(alcohol);
+        }
+    }
+
     renderAlcoholRows() {
-        return this.state.alcohols.map((alcohol, index) => {
+        return this.props.alcohols.map((alcohol, index) => {
             return (
-                <li key={index} className="mdl-list__item mdl-list__item--three-line">
+                <li key={index} className="mdl-list__item mdl-list__item--three-line" onClick={() => this.onAlcoholRowClick(alcohol)}>
                     <span className="mdl-list__item-primary-content">
                         <i className="material-icons mdl-list__item-avatar">local_drink</i>
                         <span>{alcohol.name}</span>
                         <span className="mdl-list__item-text-body">
-                            {this.getSubtitleRowForAlcohol(alcohol)}
+                            Objętość: {alcohol.volume}, Moc: {alcohol.alcohol}%
                         </span>
                     </span>
                     <span className="mdl-list__item-secondary-content">

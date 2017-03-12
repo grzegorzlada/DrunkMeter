@@ -16,12 +16,20 @@ export default class NewParty extends React.Component {
             isProfileLoaded: false,
             userProfile: null,
             isNewAlcoholMode: false,
-            drunkAlcohol: []
+            drunkAlcohol: [],
+            alcohols: []
         };
     }
 
     componentWillMount() {
         DRUNKMETER.DrunkMeterStore.UserProfileStore.getUserProfile(this.userProfileRetrievedFromStore.bind(this));
+        DRUNKMETER.DrunkMeterStore.AlcoholLibraryStore.getAllAlcohols(this.alcoholsRetrievedFromStore.bind(this));
+    }
+
+    alcoholsRetrievedFromStore(alcohols) {
+        this.setState({
+            alcohols: alcohols
+        });
     }
 
     userProfileRetrievedFromStore(profile) {
@@ -49,6 +57,13 @@ export default class NewParty extends React.Component {
         });
     }
 
+    alcoholAddedToTheList(alcohol) {
+        console.log('Alcohol added to the list');
+        this.setState((prevState) => ({
+            drunkAlcohol: prevState.drunkAlcohol.concat([alcohol])
+        }));
+    }
+
     render() {
         if (!this.state.isProfileLoaded) {
             return <div>Ładowanie danych...</div>;
@@ -57,7 +72,11 @@ export default class NewParty extends React.Component {
         if (this.state.isNewAlcoholMode) {
             return (
                 <div>
-                    <AlcoholList title="Wybierz wypity alkohol" actionIcon="add_circle" onGoBackClick={() => {this.leaveAddNewAlcoholMode();}} />
+                    <AlcoholList alcohols={this.state.alcohols}
+                        title="Wybierz wypity alkohol"
+                        actionIcon="add_circle"
+                        onGoBackClick={() => { this.leaveAddNewAlcoholMode();}}
+                        onAlcoholRowClick={(alcohol) => this.alcoholAddedToTheList(alcohol)} />
                 </div>
             );
         }
