@@ -16,14 +16,19 @@ export default class PartiesStore extends BaseStore {
         this.saveNewData(parties);
     }
 
+    getEmptyCurrentParty() {
+        return {
+            userProfile: null,
+            drunkAlcohol: [],
+            date: null,
+            drinkingTime: null,
+            stomachLevel: 0
+        };
+    }
+
     getDefaultData() {
         return {
-            current: {
-                userProfile: null,
-                drunkAlcohol: [],
-                date: null,
-                drinkingTime: null
-            },
+            current: this.getEmptyCurrentParty(),
             historical: []
         };
     }

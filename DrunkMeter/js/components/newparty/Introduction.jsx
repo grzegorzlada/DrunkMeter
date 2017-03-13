@@ -38,13 +38,13 @@ export default class Introduction extends Component {
                     <h5>Twoje dane</h5>
                     {this.getSexString()}, {this.props.height}cm wzrostu, {this.props.weight}kg wagi.
                     <div className="align-right"><Link to="/settings"><Button accent>Zmień swoje dane</Button></Link></div>
-                    
+
                     <h5 className="no-margin-bottom">Początek imprezy</h5>
                     <TextField label="Godzina" validationMessage="Nieprawidłowy format godziny" value=" " />
-                    
+
                     <h5 className="no-margin-bottom">Koniec imprezy</h5>
                     <TextField label="Godzina" validationMessage="Nieprawidłowy format godziny" value=" " />
-                    
+
                     <h5>Pożywienie</h5>
                     <RadioGroup name="food-status" value="" onChange={(e) => { }}>
                         <Radio value="empty" className="margin-right-50">Pusty żołądek</Radio>

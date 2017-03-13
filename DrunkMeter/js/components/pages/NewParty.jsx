@@ -114,7 +114,7 @@ export default class NewParty extends React.Component {
         currentParty.userProfile = this.state.userProfile;
         currentParty.drunkAlcohol = this.state.drunkAlcohol;
         parties.historical.push(currentParty);
-        parties.current = {};
+        parties.current = DRUNKMETER.DrunkMeterStore.PartiesStore.getEmptyCurrentParty();
 
         this.setState({
             parties: parties,
