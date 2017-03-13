@@ -3,6 +3,7 @@ import { Button, Card, CardTitle, CardText } from 'react-mdl';
 import Introduction from '../newparty/Introduction';
 import Calculation from '../newparty/Calculation';
 import AlcoholList from '../newparty/AlcoholList';
+import { displayToast } from '../../helpers/ToastHelper';
 
 const MODES = {
     normal: 'normal',
@@ -87,7 +88,8 @@ export default class NewParty extends React.Component {
             drunkAlcohol: drunkAlcohol,
             lastRemovedAlcohol: alcohol
         });
-        this.displayToastToUndoRemove();
+
+        displayToast('Alkohol usunięty', 5000, 'Cofnij', this.undoRemovingLastAlcohol.bind(this));
     }
 
     saveNewDataInStore(state) {
@@ -96,17 +98,6 @@ export default class NewParty extends React.Component {
         }
         state.parties.current.drunkAlcohol = state.drunkAlcohol;
         DRUNKMETER.DrunkMeterStore.PartiesStore.saveParties(state.parties);
-    }
-
-    displayToastToUndoRemove() {
-        var snackbarContainer = document.querySelector('#toast-area');
-        var data = {
-            message: 'Alkohol usunięty',
-            actionText: 'Cofnij',
-            actionHandler: this.undoRemovingLastAlcohol.bind(this),
-            timeout: 5000
-        };
-        snackbarContainer.MaterialSnackbar.showSnackbar(data);
     }
 
     undoRemovingLastAlcohol() {
@@ -129,6 +120,8 @@ export default class NewParty extends React.Component {
             parties: parties,
             drunkAlcohol: []
         });
+
+        displayToast('Impreza zapisana w historii imprez. Możesz rejestrować nową imprezę', 5000);
     }
 
     renderAddNewAlcoholMode() {
