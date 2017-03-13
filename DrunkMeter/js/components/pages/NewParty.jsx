@@ -149,7 +149,6 @@ export default class NewParty extends React.Component {
             <div>
                 <Introduction weight={this.state.userProfile.weight} height={this.state.userProfile.height} sex={this.state.userProfile.sex} />
                 <Calculation
-                    title="Obliczanie promili"
                     drunkAlcohol={this.state.drunkAlcohol}
                     onEnterNewAlcoholModeClick={() => this.goToMode(MODES.addNewAlcohol)}
                     removeAlcoholFromListHandler={(alcohol) => this.removeAlcoholFromDrunkList(alcohol)} />
