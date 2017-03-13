@@ -20,18 +20,33 @@ export default class NewParty extends React.Component {
             drunkAlcohol: [],
             alcohols: [],
             mode: MODES.normal,
-            lastRemovedAlcohol: null
+            lastRemovedAlcohol: null,
+            parties: null,
+            isPartyLoaded: false
         };
     }
 
     componentWillMount() {
         DRUNKMETER.DrunkMeterStore.UserProfileStore.getUserProfile(this.userProfileRetrievedFromStore.bind(this));
         DRUNKMETER.DrunkMeterStore.AlcoholLibraryStore.getAllAlcohols(this.alcoholsRetrievedFromStore.bind(this));
+        DRUNKMETER.DrunkMeterStore.PartiesStore.getParties(this.partiesRetrievedFromStore.bind(this));
+    }
+
+    componentWillUpdate(nextProps, nextState) {
+        this.saveNewDataInStore(nextState);
     }
 
     alcoholsRetrievedFromStore(alcohols) {
         this.setState({
             alcohols: alcohols
+        });
+    }
+
+    partiesRetrievedFromStore(parties) {
+        this.setState({
+            isPartyLoaded: true,
+            parties: parties,
+            drunkAlcohol: parties.current.drunkAlcohol
         });
     }
 
@@ -73,6 +88,14 @@ export default class NewParty extends React.Component {
             lastRemovedAlcohol: alcohol
         });
         this.displayToastToUndoRemove();
+    }
+
+    saveNewDataInStore(state) {
+        if (typeof state.parties === 'undefined' || !state.parties) {
+            return;
+        }
+        state.parties.current.drunkAlcohol = state.drunkAlcohol;
+        DRUNKMETER.DrunkMeterStore.PartiesStore.saveParties(state.parties);
     }
 
     displayToastToUndoRemove() {
@@ -128,7 +151,7 @@ export default class NewParty extends React.Component {
     }
 
     render() {
-        if (!this.state.isProfileLoaded) {
+        if (!this.state.isProfileLoaded || !this.state.isPartyLoaded) {
             return (<div>Ładowanie danych...</div>);
         }
 
