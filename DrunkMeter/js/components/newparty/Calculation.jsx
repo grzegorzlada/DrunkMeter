@@ -14,7 +14,7 @@ const propTypes = {
     removeAlcoholFromListHandler: React.PropTypes.func
 };
 
-export default class componentName extends Component {
+export default class Calculation extends Component {
     constructor(props) {
         super(props);
     }
@@ -69,4 +69,4 @@ export default class componentName extends Component {
     }
 }
 
-componentName.propTypes = propTypes;
+Calculation.propTypes = propTypes;
