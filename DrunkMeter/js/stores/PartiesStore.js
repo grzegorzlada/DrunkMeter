@@ -22,8 +22,7 @@ export default class PartiesStore extends BaseStore {
                 userProfile: null,
                 drunkAlcohol: [],
                 date: null,
-                drinkingTime: null,
-                premileHistory: []
+                drinkingTime: null
             },
             historical: []
         };

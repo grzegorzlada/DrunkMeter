@@ -1,5 +1,5 @@
 import React from 'react';
-import { Card, CardTitle, CardText } from 'react-mdl';
+import { Button, Card, CardTitle, CardText } from 'react-mdl';
 import Introduction from '../newparty/Introduction';
 import Calculation from '../newparty/Calculation';
 import AlcoholList from '../newparty/AlcoholList';
@@ -117,6 +117,20 @@ export default class NewParty extends React.Component {
         this.setState({ lastRemovedAlcohol: null });
     }
 
+    finishParty() {
+        var currentParty = this.state.parties.current;
+        var parties = this.state.parties;
+        currentParty.userProfile = this.state.userProfile;
+        currentParty.drunkAlcohol = this.state.drunkAlcohol;
+        parties.historical.push(currentParty);
+        parties.current = {};
+
+        this.setState({
+            parties: parties,
+            drunkAlcohol: []
+        });
+    }
+
     renderAddNewAlcoholMode() {
         return (
             <div>
@@ -146,6 +160,7 @@ export default class NewParty extends React.Component {
                     drunkAlcohol={this.state.drunkAlcohol}
                     onEnterNewAlcoholModeClick={() => this.goToMode(MODES.addNewAlcohol)}
                     removeAlcoholFromListHandler={(alcohol) => this.removeAlcoholFromDrunkList(alcohol)} />
+                <Button raised colored onClick={() => { this.finishParty(); }}>Zakończ imprezę</Button>
             </div>
         );
     }
