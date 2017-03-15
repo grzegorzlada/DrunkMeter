@@ -23,7 +23,10 @@ export default class NewParty extends React.Component {
             mode: MODES.normal,
             lastRemovedAlcohol: null,
             parties: null,
-            isPartyLoaded: false
+            isPartyLoaded: false,
+            stomachLevel: 0.5,
+            partyDetails: {},
+            initialPartyDetails: {}
         };
     }
 
@@ -44,10 +47,17 @@ export default class NewParty extends React.Component {
     }
 
     partiesRetrievedFromStore(parties) {
+        var current = parties.current;
+
         this.setState({
             isPartyLoaded: true,
             parties: parties,
-            drunkAlcohol: parties.current.drunkAlcohol
+            drunkAlcohol: current.drunkAlcohol,
+            partyDetails: {
+                startTime: current.startTime,
+                endTime: current.endTime,
+                stomachLevel: current.userProfile.stomachLevel
+            }
         });
     }
 
@@ -111,8 +121,12 @@ export default class NewParty extends React.Component {
     finishParty() {
         var currentParty = this.state.parties.current;
         var parties = this.state.parties;
-        currentParty.userProfile = this.state.userProfile;
+        var userProfile = this.state.userProfile;
+        userProfile.stomachLevel = this.state.stomachLevel;
+        currentParty.userProfile = userProfile;
         currentParty.drunkAlcohol = this.state.drunkAlcohol;
+        currentParty.startTime = this.state.partyDetails.startTime;
+        currentParty.endTime = this.state.partyDetails.endTime;
         parties.historical.push(currentParty);
         parties.current = DRUNKMETER.DrunkMeterStore.PartiesStore.getEmptyCurrentParty();
 
@@ -122,6 +136,12 @@ export default class NewParty extends React.Component {
         });
 
         displayToast('Impreza zapisana w historii imprez. Możesz rejestrować nową imprezę', 5000);
+    }
+
+    partyDetailsChanged(partyDetails) {
+        this.setState({
+            partyDetails: partyDetails
+        });
     }
 
     renderAddNewAlcoholMode() {
@@ -147,7 +167,12 @@ export default class NewParty extends React.Component {
     renderNormalMode() {
         return (
             <div>
-                <Introduction weight={this.state.userProfile.weight} height={this.state.userProfile.height} sex={this.state.userProfile.sex} />
+                <Introduction
+                    weight={this.state.userProfile.weight}
+                    height={this.state.userProfile.height}
+                    sex={this.state.userProfile.sex}
+                    partyDetails={this.state.partyDetails}
+                    onPartyDetailsChange={(partyDetails) => { this.partyDetailsChanged(partyDetails); }} />
                 <Calculation
                     drunkAlcohol={this.state.drunkAlcohol}
                     onEnterNewAlcoholModeClick={() => this.goToMode(MODES.addNewAlcohol)}

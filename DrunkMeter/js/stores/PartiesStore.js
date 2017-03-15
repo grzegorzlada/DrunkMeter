@@ -18,11 +18,16 @@ export default class PartiesStore extends BaseStore {
 
     getEmptyCurrentParty() {
         return {
-            userProfile: null,
             drunkAlcohol: [],
             date: null,
+            startTime: null,
+            endTime: null,
             drinkingTime: null,
-            stomachLevel: 0
+            userProfile: {
+                weight: 100,
+                height: 100,
+                stomachLevel: 0.5
+            }
         };
     }
 
