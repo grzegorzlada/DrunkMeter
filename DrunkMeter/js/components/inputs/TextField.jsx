@@ -66,6 +66,10 @@ export default class TextField extends React.Component {
             : this.props.label;
     }
 
+    getValue() {
+        return this.state.value ? this.state.value : '';
+    }
+
     getContainerStyle() {
         return typeof this.props.containerStyle !== 'undefined' && this.props.containerStyle !== null
             ? this.props.containerStyle
@@ -76,7 +80,7 @@ export default class TextField extends React.Component {
         return (
             <div className={this.getClassName()} style={this.getContainerStyle()}>
                 <input className="mdl-textfield__input" type="text" id={this.Id} pattern={this.props.pattern}
-                    onChange={(e) => { this.textfieldChanhge(e); }} value={this.state.value} />
+                    onChange={(e) => { this.textfieldChanhge(e); }} value={this.getValue()} />
                 <label className="mdl-textfield__label" htmlFor={this.Id}>{this.getLabel()}</label>
                 <span className="mdl-textfield__error">{this.props.validationMessage}</span>
             </div>

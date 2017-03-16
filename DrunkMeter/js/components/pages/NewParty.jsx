@@ -106,7 +106,14 @@ export default class NewParty extends React.Component {
         if (typeof state.parties === 'undefined' || !state.parties) {
             return;
         }
-        state.parties.current.drunkAlcohol = state.drunkAlcohol;
+
+        var currentParty = state.parties.current;
+        var userProfile = state.userProfile;
+        userProfile.stomachLevel = state.stomachLevel;
+        currentParty.userProfile = userProfile;
+        currentParty.drunkAlcohol = state.drunkAlcohol;
+        currentParty.startTime = state.partyDetails.startTime;
+        currentParty.endTime = state.partyDetails.endTime;
         DRUNKMETER.DrunkMeterStore.PartiesStore.saveParties(state.parties);
     }
 
@@ -121,12 +128,6 @@ export default class NewParty extends React.Component {
     finishParty() {
         var currentParty = this.state.parties.current;
         var parties = this.state.parties;
-        var userProfile = this.state.userProfile;
-        userProfile.stomachLevel = this.state.stomachLevel;
-        currentParty.userProfile = userProfile;
-        currentParty.drunkAlcohol = this.state.drunkAlcohol;
-        currentParty.startTime = this.state.partyDetails.startTime;
-        currentParty.endTime = this.state.partyDetails.endTime;
         parties.historical.push(currentParty);
         parties.current = DRUNKMETER.DrunkMeterStore.PartiesStore.getEmptyCurrentParty();
 

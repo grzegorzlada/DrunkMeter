@@ -29,20 +29,22 @@ export default class Introduction extends Component {
         };
     }
 
-    componentWillReceiveProps(nextProps) {
-        if (typeof nextProps.partyDetails === 'undefined' || !nextProps.partyDetails) {
+    componentWillMount() {
+        if (typeof this.props.partyDetails === 'undefined' || !this.props.partyDetails) {
             return;
         }
 
         this.setState({
-            startTime: nextProps.partyDetails.startTime,
-            endTime: nextProps.partyDetails.endTime,
-            stomachLevel: nextProps.partyDetails.stomachLevel
+            startTime: this.props.partyDetails.startTime,
+            endTime: this.props.partyDetails.endTime,
+            stomachLevel: this.props.partyDetails.stomachLevel
         });
     }
 
     componentWillUpdate(nextProps, nextState) {
-        this.onPartyDetailsChange(nextState);
+        if (this.state !== nextState) {
+            this.onPartyDetailsChange(nextState);
+        }
     }
 
     getSexString() {
@@ -99,7 +101,7 @@ export default class Introduction extends Component {
                     <TextField label="Godzina" validationMessage="Nieprawidłowy format godziny" value={this.state.endTime} onChange={(data) => { this.endTimeChanged(data); }} />
 
                     <h5>Pożywienie</h5>
-                    <RadioGroup name="food-status" value="stomachLevel">
+                    <RadioGroup name="food-status" value={this.state.stomachLevel}>
                         <Radio value="0" className="margin-right-50">Pusty żołądek</Radio>
                         <Radio value="0.5" className="margin-right-50">W połowie pełny żołądek</Radio>
                         <Radio value="1">Pełny żołądek</Radio>
