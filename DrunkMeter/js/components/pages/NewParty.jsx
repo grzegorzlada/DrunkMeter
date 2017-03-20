@@ -17,13 +17,13 @@ export default class NewParty extends React.Component {
         super(props);
         this.state = {
             isProfileLoaded: false,
+            isPartyLoaded: false,
             userProfile: null,
             drunkAlcohol: [],
             alcohols: [],
             mode: MODES.normal,
             lastRemovedAlcohol: null,
             parties: null,
-            isPartyLoaded: false,
             partyDetails: {}
         };
     }
@@ -131,7 +131,12 @@ export default class NewParty extends React.Component {
 
         this.setState({
             parties: parties,
-            drunkAlcohol: []
+            drunkAlcohol: [],
+            partyDetails: {
+                startTime: '20:00',
+                endTime: '23:00',
+                stomachLevel: 0.5
+            }
         });
 
         displayToast('Impreza zapisana w historii imprez. Możesz rejestrować nową imprezę', 5000);

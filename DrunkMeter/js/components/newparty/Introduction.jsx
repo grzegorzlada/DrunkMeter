@@ -41,6 +41,23 @@ export default class Introduction extends Component {
         });
     }
 
+    componentWillReceiveProps(nextProps) {
+        var currentPartyDetails = this.getPartyDetailsObject(this.state);
+        var nextPartyDetails = nextProps.partyDetails;
+
+        if (currentPartyDetails.startTime === nextPartyDetails.startTime
+            && currentPartyDetails.endTime === nextPartyDetails.endTime
+            && currentPartyDetails.stomachLevel === nextPartyDetails.stomachLevel) {
+            return;
+        }
+
+        this.setState({
+            startTime: nextPartyDetails.startTime,
+            endTime: nextPartyDetails.endTime,
+            stomachLevel: nextPartyDetails.stomachLevel.toString()
+        });
+    }
+
     componentWillUpdate(nextProps, nextState) {
         if (this.state !== nextState) {
             this.onPartyDetailsChange(nextState);
