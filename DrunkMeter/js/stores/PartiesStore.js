@@ -20,8 +20,8 @@ export default class PartiesStore extends BaseStore {
         return {
             drunkAlcohol: [],
             date: null,
-            startTime: null,
-            endTime: null,
+            startTime: '20:00',
+            endTime: '23:00',
             userProfile: {
                 weight: 100,
                 height: 100,

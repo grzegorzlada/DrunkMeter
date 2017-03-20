@@ -107,8 +107,12 @@ export default class NewParty extends React.Component {
 
         var currentParty = state.parties.current;
         var userProfile = state.userProfile;
-        userProfile.stomachLevel = state.partyDetails.stomachLevel;
-        currentParty.userProfile = userProfile;
+        currentParty.userProfile = {
+            weight: +userProfile.weight,
+            height: +userProfile.height,
+            sex: userProfile.sex,
+            stomachLevel: state.partyDetails.stomachLevel
+        };
         currentParty.drunkAlcohol = state.drunkAlcohol;
         currentParty.startTime = state.partyDetails.startTime;
         currentParty.endTime = state.partyDetails.endTime;

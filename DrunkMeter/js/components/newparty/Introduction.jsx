@@ -37,7 +37,7 @@ export default class Introduction extends Component {
         this.setState({
             startTime: this.props.partyDetails.startTime,
             endTime: this.props.partyDetails.endTime,
-            stomachLevel: this.props.partyDetails.stomachLevel
+            stomachLevel: this.props.partyDetails.stomachLevel.toString()
         });
     }
 
