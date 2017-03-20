@@ -24,9 +24,7 @@ export default class NewParty extends React.Component {
             lastRemovedAlcohol: null,
             parties: null,
             isPartyLoaded: false,
-            stomachLevel: 0.5,
-            partyDetails: {},
-            initialPartyDetails: {}
+            partyDetails: {}
         };
     }
 
@@ -109,7 +107,7 @@ export default class NewParty extends React.Component {
 
         var currentParty = state.parties.current;
         var userProfile = state.userProfile;
-        userProfile.stomachLevel = state.stomachLevel;
+        userProfile.stomachLevel = state.partyDetails.stomachLevel;
         currentParty.userProfile = userProfile;
         currentParty.drunkAlcohol = state.drunkAlcohol;
         currentParty.startTime = state.partyDetails.startTime;

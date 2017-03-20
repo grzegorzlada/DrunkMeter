@@ -22,7 +22,6 @@ export default class PartiesStore extends BaseStore {
             date: null,
             startTime: null,
             endTime: null,
-            drinkingTime: null,
             userProfile: {
                 weight: 100,
                 height: 100,

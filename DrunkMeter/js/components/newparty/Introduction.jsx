@@ -81,6 +81,12 @@ export default class Introduction extends Component {
         }
     }
 
+    onStomachLevelChange(e) {
+        this.setState({
+            stomachLevel: e.target.value
+        });
+    }
+
     render() {
         return (
             <Card shadow={0} style={{
@@ -101,7 +107,7 @@ export default class Introduction extends Component {
                     <TextField label="Godzina" validationMessage="Nieprawidłowy format godziny" value={this.state.endTime} onChange={(data) => { this.endTimeChanged(data); }} />
 
                     <h5>Pożywienie</h5>
-                    <RadioGroup name="food-status" value={this.state.stomachLevel}>
+                    <RadioGroup name="food-status" value={this.state.stomachLevel} onChange={(e) => this.onStomachLevelChange(e)}>
                         <Radio value="0" className="margin-right-50">Pusty żołądek</Radio>
                         <Radio value="0.5" className="margin-right-50">W połowie pełny żołądek</Radio>
                         <Radio value="1">Pełny żołądek</Radio>
