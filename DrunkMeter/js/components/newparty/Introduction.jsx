@@ -101,10 +101,18 @@ export default class Introduction extends Component {
                     <div className="align-right"><Link to="/settings"><Button accent>Zmień swoje dane</Button></Link></div>
 
                     <h5 className="no-margin-bottom">Początek imprezy</h5>
-                    <TextField label="Godzina" validationMessage="Nieprawidłowy format godziny" value={this.state.startTime} onChange={(data) => { this.startTimeChanged(data); }} />
+                    <TextField label="Godzina"
+                        pattern="^([0-1]?[0-9]|2[0-3]):[0-5][0-9]$"
+                        validationMessage="Nieprawidłowy format godziny"
+                        value={this.state.startTime}
+                        onChange={(data) => { this.startTimeChanged(data); }} />
 
                     <h5 className="no-margin-bottom">Koniec imprezy</h5>
-                    <TextField label="Godzina" validationMessage="Nieprawidłowy format godziny" value={this.state.endTime} onChange={(data) => { this.endTimeChanged(data); }} />
+                    <TextField label="Godzina"
+                        pattern="^([0-1]?[0-9]|2[0-3]):[0-5][0-9]$"
+                        validationMessage="Nieprawidłowy format godziny"
+                        value={this.state.endTime}
+                        onChange={(data) => { this.endTimeChanged(data); }} />
 
                     <h5>Pożywienie</h5>
                     <RadioGroup name="food-status" value={this.state.stomachLevel} onChange={(e) => this.onStomachLevelChange(e)}>
