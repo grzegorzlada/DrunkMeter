@@ -106,3 +106,9 @@ a {
 .hidden {
   display: none;
 }
+.warning-container {
+  text-align: center;
+}
+.warning-container i {
+  font-size: 60px;
+}

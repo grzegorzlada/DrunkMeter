@@ -184,6 +184,7 @@ export default class NewParty extends React.Component {
                 <Calculation
                     drunkAlcohol={this.state.drunkAlcohol}
                     partyDetails={this.state.partyDetails}
+                    personData={this.state.userProfile}
                     onEnterNewAlcoholModeClick={() => this.goToMode(MODES.addNewAlcohol)}
                     removeAlcoholFromListHandler={(alcohol) => this.removeAlcoholFromDrunkList(alcohol)} />
                 <Button raised colored onClick={() => { this.finishParty(); }}>Zakończ imprezę</Button>
