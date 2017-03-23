@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {round} from 'lodash';
+import { round, maxBy } from 'lodash';
 
 const propTypes = {
     premiles: React.PropTypes.array.isRequired
@@ -38,14 +38,27 @@ export default class PremilesTable extends Component {
 
     }
 
+    _getMaximumAlcoholLevel() {
+        return maxBy(this.props.premiles, function (p) {
+            return p.getCurrentPremile();
+        }).getCurrentPremile();
+    }
+
     _renderTableRows() {
+        var maximumLevel = this._getMaximumAlcoholLevel();
+
         return this.props.premiles.map(function renderRows(premile, index) {
             var currentPremile = round(premile.getCurrentPremile(), 3);
             var hoursSinceStart = premile.getHoursSinceDrinkingCommencing();
+            var barWidth = round((currentPremile / maximumLevel) * 100);
+            var style = {
+                width: barWidth + '%'
+            };
 
             return (
                 <tr key={index}>
                     <td className="mdl-data-table__cell--non-numeric">{hoursSinceStart}</td>
+                    <td><div className="premileBar mdl-color--accent" style={style}></div></td>
                     <td className="mdl-data-table__cell--non-numeric">{currentPremile}</td>
                 </tr>
             );
@@ -59,7 +72,8 @@ export default class PremilesTable extends Component {
                     <thead>
                         <tr>
                             <th className="mdl-data-table__cell--non-numeric">Godzin od rozpoczęcia picia</th>
-                            <th className="mdl-data-table__cell--non-numeric">Zawartość alkoholu we krwi</th>
+                            <th className="mdl-data-table__cell--non-numeric width-85p">Zawartość alkoholu we krwi</th>
+                            <th></th>
                         </tr>
                     </thead>
                     <tbody>

@@ -112,3 +112,9 @@ a {
 .warning-container i {
   font-size: 60px;
 }
+.width-85p {
+  width: 85%;
+}
+.premileBar {
+  height: 15px;
+}
