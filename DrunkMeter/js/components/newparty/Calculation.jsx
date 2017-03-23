@@ -5,11 +5,12 @@ import {
     CardTitle,
     CardText
 } from 'react-mdl';
+import PremilesTable from './PremilesTable';
 import PlusButton from '../inputs/PlusButton';
 import AlcoholList from './AlcoholList';
 import Alcohol from '../../calculator/Alcohol';
 import PersonData from '../../calculator/PersonData';
-import Calculator from '../../calculator/Calculator'; 
+import Calculator from '../../calculator/Calculator';
 
 const propTypes = {
     onEnterNewAlcoholModeClick: React.PropTypes.func,
@@ -66,7 +67,7 @@ export default class Calculation extends Component {
         var drunkAlcohol = this._getDrunkAlcoholForCalculator();
         var drinkingTime = 2;
         var calculator = new Calculator(personData, drunkAlcohol, drinkingTime);
-        
+
         var premiles = calculator.getAlcoholPremiles();
         return premiles;
     }
@@ -74,7 +75,9 @@ export default class Calculation extends Component {
     _renderPremileDistribution() {
         var premiles = this._getCalculatedPremiles();
         return (
-            <div>Kalkulacja</div>
+            <div>
+                <PremilesTable premiles={premiles} />
+            </div>
         );
     }
 
