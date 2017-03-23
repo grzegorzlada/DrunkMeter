@@ -10,8 +10,9 @@ import AlcoholList from './AlcoholList';
 
 const propTypes = {
     onEnterNewAlcoholModeClick: React.PropTypes.func,
-    drunkAlcohol: React.PropTypes.array,
-    removeAlcoholFromListHandler: React.PropTypes.func
+    drunkAlcohol: React.PropTypes.array.isRequired,
+    removeAlcoholFromListHandler: React.PropTypes.func,
+    partyDetails: React.PropTypes.object.isRequired
 };
 
 export default class Calculation extends Component {
