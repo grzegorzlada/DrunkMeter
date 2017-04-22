@@ -1,4 +1,5 @@
 import BaseStore from './BaseStore';
+import v4 from 'uuid/v4';
 
 const PARTIES_KEY = 'DrunkMeter_Store_Parties';
 
@@ -18,6 +19,7 @@ export default class PartiesStore extends BaseStore {
 
     getEmptyCurrentParty() {
         return {
+            id: v4(),
             drunkAlcohol: [],
             date: null,
             startTime: '20:00',
