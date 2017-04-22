@@ -74,9 +74,15 @@ export default class Calculation extends Component {
 
     _renderPremileDistribution() {
         var premiles = this._getCalculatedPremiles();
+        var soberingTime = premiles.length - 1;
+        if (soberingTime <= 0) {
+            soberingTime = 0;
+        }
+
         return (
             <div>
-                <PremilesTable premiles={premiles} />
+                <div>Będzisz trzeźwieć przez <strong> {soberingTime} </strong> godziny od rozpoczęcia picia.</div>
+                <PremilesTable premiles={premiles} startTime={this.props.partyDetails.startTime} />
             </div>
         );
     }
