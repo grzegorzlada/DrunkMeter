@@ -4,6 +4,7 @@ import Introduction from '../newparty/Introduction';
 import Calculation from '../newparty/Calculation';
 import AlcoholList from '../newparty/AlcoholList';
 import { displayToast } from '../../helpers/ToastHelper';
+import moment from 'moment';
 
 const MODES = {
     normal: 'normal',
@@ -111,7 +112,8 @@ export default class NewParty extends React.Component {
             weight: +userProfile.weight,
             height: +userProfile.height,
             sex: userProfile.sex,
-            stomachLevel: state.partyDetails.stomachLevel
+            stomachLevel: state.partyDetails.stomachLevel,
+            date: moment().format()
         };
         currentParty.drunkAlcohol = state.drunkAlcohol;
         currentParty.startTime = state.partyDetails.startTime;
