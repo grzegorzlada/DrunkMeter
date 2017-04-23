@@ -112,12 +112,12 @@ export default class NewParty extends React.Component {
             weight: +userProfile.weight,
             height: +userProfile.height,
             sex: userProfile.sex,
-            stomachLevel: state.partyDetails.stomachLevel,
-            date: moment().format()
+            stomachLevel: state.partyDetails.stomachLevel
         };
         currentParty.drunkAlcohol = state.drunkAlcohol;
         currentParty.startTime = state.partyDetails.startTime;
         currentParty.endTime = state.partyDetails.endTime;
+        currentParty.date = moment().format();
         DRUNKMETER.DrunkMeterStore.PartiesStore.saveParties(state.parties);
     }
 
