@@ -2,6 +2,7 @@ import React from 'react';
 import moment from 'moment';
 import { Card, CardTitle, CardText } from 'react-mdl';
 import { reverse } from 'lodash';
+import { Link } from 'react-router';
 
 export default class History extends React.Component {
     constructor(props) {
@@ -34,18 +35,20 @@ export default class History extends React.Component {
             var partyDate = moment(party.date);
 
             return (
-                <li className="mdl-list__item mdl-list__item--three-line" key={index}>
-                    <span className="mdl-list__item-primary-content">
-                        <i className="material-icons mdl-list__item-avatar">local_drink</i>
-                        <span>{partyDate.format('DD.MM.YYYY')}</span>
-                        <span className="mdl-list__item-text-body">
-                            Koniec imprezy: {party.endTime}, {party.drunkAlcohol.length} wypitych alkoholi.
+                <Link to={`party/${party.id}`} key={index}>
+                    <li className="mdl-list__item mdl-list__item--three-line">
+                        <span className="mdl-list__item-primary-content">
+                            <i className="material-icons mdl-list__item-avatar">local_drink</i>
+                            <span>{partyDate.format('DD.MM.YYYY')}</span>
+                            <span className="mdl-list__item-text-body">
+                                Koniec imprezy: {party.endTime}, {party.drunkAlcohol.length} wypitych alkoholi.
                         </span>
-                    </span>
-                    <span className="mdl-list__item-secondary-content">
-                        <a className="mdl-list__item-secondary-action" href="#"><i className="material-icons">zoom_in</i></a>
-                    </span>
-                </li>
+                        </span>
+                        <span className="mdl-list__item-secondary-content">
+                            <span className="mdl-list__item-secondary-action" href="#"><i className="material-icons">zoom_in</i></span>
+                        </span>
+                    </li>
+                </Link>
             );
         });
     }
