@@ -11,6 +11,7 @@ import AlcoholList from './AlcoholList';
 import Alcohol from '../../calculator/Alcohol';
 import PersonData from '../../calculator/PersonData';
 import Calculator from '../../calculator/Calculator';
+import { getDrunkAlcoholForCalculatorFromDrunkAlcoholJson } from '../../calculator/Converters';
 
 const propTypes = {
     onEnterNewAlcoholModeClick: React.PropTypes.func,
@@ -51,20 +52,9 @@ export default class Calculation extends Component {
             && drunkAlcohol.length > 0;
     }
 
-    _getDrunkAlcoholForCalculator() {
-        var alcohols = [];
-
-        this.props.drunkAlcohol.forEach(function iterateAlcohols(drunkItem) {
-            var alcohol = new Alcohol(drunkItem.volume, drunkItem.alcohol);
-            alcohols.push(alcohol);
-        }, this);
-
-        return alcohols;
-    }
-
     _getCalculatedPremiles() {
         var personData = new PersonData(this.props.personData.weight, this.props.personData.height, this.props.personData.sex, +this.props.partyDetails.stomachLevel);
-        var drunkAlcohol = this._getDrunkAlcoholForCalculator();
+        var drunkAlcohol = getDrunkAlcoholForCalculatorFromDrunkAlcoholJson(this.props.drunkAlcohol);
         var drinkingTime = 2;
         var calculator = new Calculator(personData, drunkAlcohol, drinkingTime);
 

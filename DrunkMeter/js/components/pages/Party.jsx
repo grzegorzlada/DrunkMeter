@@ -4,6 +4,10 @@ import { Button, Card, CardTitle, CardText } from 'react-mdl';
 import { Link } from 'react-router';
 import moment from 'moment';
 import AlcoholList from '../newparty/AlcoholList';
+import PremilesTable from '../newparty/PremilesTable';
+import {getDrunkAlcoholForCalculatorFromDrunkAlcoholJson} from '../../calculator/Converters';
+import PersonData from '../../calculator/PersonData';
+import Calculator from '../../calculator/Calculator';
 
 export default class Party extends Component {
     constructor(props) {
@@ -54,6 +58,47 @@ export default class Party extends Component {
         return sex === 'male' ? 'mężczyzny' : 'kobiety';
     }
 
+    _isPossibleToCalculatePremiles() {
+        return this.state.party.drunkAlcohol.length > 0;
+    }
+
+    _renderNotEnoughInformationNotification() {
+        return (
+            <div className="warning-container">
+                <i className="material-icons">error</i>
+                <p>
+                    Nie zapisano żadnych alkoholi wypitych na tej imprezie.
+                </p>
+            </div>
+        );
+    }
+
+    _getCalculatedPremiles() {
+        var party = this.state.party;
+        var personData = new PersonData(party.userProfile.weight, party.userProfile.height, party.userProfile.sex, +party.userProfile.stomachLevel);
+        var drunkAlcohol = getDrunkAlcoholForCalculatorFromDrunkAlcoholJson(party.drunkAlcohol);
+        var drinkingTime = 2;
+        var calculator = new Calculator(personData, drunkAlcohol, drinkingTime);
+
+        var premiles = calculator.getAlcoholPremiles();
+        return premiles;
+    }
+
+    _renderPremileDistribution() {
+        var premiles = this._getCalculatedPremiles();
+        var soberingTime = premiles.length - 1;
+        if (soberingTime <= 0) {
+            soberingTime = 0;
+        }
+
+        return (
+            <div>
+                <div>Trzeźwiałeś przez <strong> {soberingTime} </strong> godzin od rozpoczęcia picia.</div>
+                <PremilesTable premiles={premiles} startTime={this.state.party.startTime} />
+            </div>
+        );
+    }
+
     _renderParty() {
         var party = this.state.party;
         return (
@@ -82,6 +127,17 @@ export default class Party extends Component {
                     <CardTitle>Wypite alkohole</CardTitle>
                     <CardText>
                         <AlcoholList alcohols={this.state.party.drunkAlcohol} />
+                    </CardText>
+                </Card>
+
+                <Card shadow={0} style={{
+                    width: '100%',
+                    margin: 'auto',
+                    marginBottom: 10
+                }}>
+                    <CardTitle>Rozkład promili</CardTitle>
+                    <CardText>
+                        {this._isPossibleToCalculatePremiles() ? this._renderPremileDistribution() : this._renderNotEnoughInformationNotification()}
                     </CardText>
                 </Card>
             </div>
