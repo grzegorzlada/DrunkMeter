@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import {
-    Button,
     Card,
     CardTitle,
     CardText
@@ -8,10 +7,7 @@ import {
 import PremilesTable from './PremilesTable';
 import PlusButton from '../inputs/PlusButton';
 import AlcoholList from './AlcoholList';
-import Alcohol from '../../calculator/Alcohol';
-import PersonData from '../../calculator/PersonData';
-import Calculator from '../../calculator/Calculator';
-import { getDrunkAlcoholForCalculatorFromDrunkAlcoholJson } from '../../calculator/Converters';
+import { calculatePremiles } from '../../calculator/Utilities';
 
 const propTypes = {
     onEnterNewAlcoholModeClick: React.PropTypes.func,
@@ -52,18 +48,8 @@ export default class Calculation extends Component {
             && drunkAlcohol.length > 0;
     }
 
-    _getCalculatedPremiles() {
-        var personData = new PersonData(this.props.personData.weight, this.props.personData.height, this.props.personData.sex, +this.props.partyDetails.stomachLevel);
-        var drunkAlcohol = getDrunkAlcoholForCalculatorFromDrunkAlcoholJson(this.props.drunkAlcohol);
-        var drinkingTime = 2;
-        var calculator = new Calculator(personData, drunkAlcohol, drinkingTime);
-
-        var premiles = calculator.getAlcoholPremiles();
-        return premiles;
-    }
-
     _renderPremileDistribution() {
-        var premiles = this._getCalculatedPremiles();
+        var premiles = calculatePremiles(this.props.personData, +this.props.partyDetails.stomachLevel, this.props.drunkAlcohol);
         var soberingTime = premiles.length - 1;
         if (soberingTime <= 0) {
             soberingTime = 0;

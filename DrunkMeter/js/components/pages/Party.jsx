@@ -5,9 +5,7 @@ import { Link } from 'react-router';
 import moment from 'moment';
 import AlcoholList from '../newparty/AlcoholList';
 import PremilesTable from '../newparty/PremilesTable';
-import {getDrunkAlcoholForCalculatorFromDrunkAlcoholJson} from '../../calculator/Converters';
-import PersonData from '../../calculator/PersonData';
-import Calculator from '../../calculator/Calculator';
+import {calculatePremiles} from '../../calculator/Utilities';
 
 export default class Party extends Component {
     constructor(props) {
@@ -73,19 +71,9 @@ export default class Party extends Component {
         );
     }
 
-    _getCalculatedPremiles() {
-        var party = this.state.party;
-        var personData = new PersonData(party.userProfile.weight, party.userProfile.height, party.userProfile.sex, +party.userProfile.stomachLevel);
-        var drunkAlcohol = getDrunkAlcoholForCalculatorFromDrunkAlcoholJson(party.drunkAlcohol);
-        var drinkingTime = 2;
-        var calculator = new Calculator(personData, drunkAlcohol, drinkingTime);
-
-        var premiles = calculator.getAlcoholPremiles();
-        return premiles;
-    }
-
     _renderPremileDistribution() {
-        var premiles = this._getCalculatedPremiles();
+        var party = this.state.party;
+        var premiles = calculatePremiles(party.userProfile, +party.userProfile.stomachLevel, party.drunkAlcohol);
         var soberingTime = premiles.length - 1;
         if (soberingTime <= 0) {
             soberingTime = 0;
