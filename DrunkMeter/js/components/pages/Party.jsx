@@ -73,7 +73,7 @@ export default class Party extends Component {
 
     _renderPremileDistribution() {
         var party = this.state.party;
-        var premiles = calculatePremiles(party.userProfile, +party.userProfile.stomachLevel, party.drunkAlcohol);
+        var premiles = calculatePremiles(party.userProfile, +party.userProfile.stomachLevel, party.drunkAlcohol, party.startTime, party.endTime);
         var soberingTime = premiles.length - 1;
         if (soberingTime <= 0) {
             soberingTime = 0;
